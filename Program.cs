@@ -1,11 +1,17 @@
 ﻿using DependencyInjection.Entities;
 using DependencyInjection.Managers;
 using DependencyInjection.Shared;
+using Microsoft.Extensions.DependencyInjection;
 
-var naiveGameManager = new NaiveGameManager();
+var services = new ServiceCollection();
 
-Console.WriteLine(naiveGameManager.PlayRound().Result());
+services.AddSingleton<Random>();
+services.AddKeyedTransient<IPlayer, ComputerPlayer>("ComputerPlayer");
+services.AddKeyedTransient<IPlayer, HumanPlayer>("HumanPlayer");
+services.AddSingleton<GameManager>();
 
-var gameManager = new GameManager(new HumanPlayer(), new ComputerPlayer(new Random()));
+using var serviceProvider = services.BuildServiceProvider();
+
+var gameManager = serviceProvider.GetRequiredService<GameManager>();
 
 Console.WriteLine(gameManager.PlayRound().Result());

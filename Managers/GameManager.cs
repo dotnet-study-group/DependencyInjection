@@ -1,8 +1,11 @@
 using DependencyInjection.Shared;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjection.Managers;
 
-public class GameManager(IPlayer playerOne, IPlayer playerTwo)
+public class GameManager(
+    [FromKeyedServices("HumanPlayer")] IPlayer playerOne, 
+    [FromKeyedServices("ComputerPlayer")] IPlayer playerTwo)
 {
     public Result PlayRound()
     {
