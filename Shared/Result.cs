@@ -5,6 +5,7 @@ public enum Result
     PlayerOneWins,
     PlayerTwoWins,
     Draw,
+    Error
 }
 
 internal static class ResultExtensions

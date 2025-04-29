@@ -6,12 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 var services = new ServiceCollection();
 
 services.AddSingleton<Random>();
-services.AddKeyedTransient<IPlayer, ComputerPlayer>("ComputerPlayer");
-services.AddKeyedTransient<IPlayer, HumanPlayer>("HumanPlayer");
+services.AddKeyedTransient<IPlayer, ComputerPlayer>("Computer");
+services.AddKeyedTransient<IPlayer, HumanPlayer>("Human");
 services.AddSingleton<GameManager>();
 
 using var serviceProvider = services.BuildServiceProvider();
 
 var gameManager = serviceProvider.GetRequiredService<GameManager>();
 
-Console.WriteLine(gameManager.PlayRound().Result());
+Console.WriteLine(gameManager.PlayRound(PlayerType.Computer, PlayerType.Human).Result());

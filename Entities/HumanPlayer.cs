@@ -9,6 +9,7 @@ public class HumanPlayer : IPlayer
         Choice? choice;
         do
         {
+            Console.WriteLine("Type your choice: ");
             var input = Console.ReadLine()?.ToLower();
             choice = input switch
             {
